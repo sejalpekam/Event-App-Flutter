@@ -1,12 +1,14 @@
 import 'package:event_app_flutter/Modules/Data.dart';
 import 'package:event_app_flutter/Modules/Event.dart';
+import 'package:event_app_flutter/Screens/AddEvent.dart';
 import 'package:event_app_flutter/Screens/ProfileScreen.dart';
 import 'package:event_app_flutter/Widgets/HomeEventContainer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.uid=''}) : super(key: key);
-  final String uid; 
+  HomeScreen({Key key, this.uid}) : super(key: key);
+  final String uid;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -46,9 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => AddEvent()));
+          },
           child: const Icon(Icons.add),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: KAppColor,
         ),
         backgroundColor: Colors.white,
         body: ListView(
@@ -65,15 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.white,
-                          ),
                           Text(
-                            'Alexandria, Egypt',
+                            'WELCOME',
                             style: TextStyle(
                               color: Colors.white,
-                              decoration: TextDecoration.underline,
                             ),
                           )
                         ],
@@ -87,11 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         },
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: AssetImage(
-                            'assets/pp.jpg',
-                          ),
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
                         ),
                       )
                     ],
@@ -114,8 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
                       children: buildCategoriesWidgets(),
                     ),
                   ),
@@ -131,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'This Weelend',
+                        'This Weekend',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 15,

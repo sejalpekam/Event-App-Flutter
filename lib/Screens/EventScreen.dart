@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class EventScreen extends StatefulWidget {
   final Event event;
 
-  const EventScreen({ this.event});
+  const EventScreen({this.event});
   @override
   _EventScreenState createState() => _EventScreenState();
 }

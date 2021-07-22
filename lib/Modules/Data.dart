@@ -1,7 +1,7 @@
 import 'package:event_app_flutter/Modules/Event.dart';
 import 'package:flutter/material.dart';
 
-const Color KAppColor = Color(0xffde554d);
+const Color KAppColor = Color(0xFF00AF19);
 
 List<Map> categories = [
   {
@@ -19,6 +19,10 @@ List<Map> categories = [
   {
     "name": 'ART',
     'icon': Icons.bubble_chart,
+  },
+  {
+    "name": 'OTHER',
+    'icon': Icons.miscellaneous_services,
   },
 ];
 
