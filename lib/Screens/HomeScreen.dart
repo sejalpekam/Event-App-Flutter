@@ -31,13 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Icon(category['icon'], color: Colors.white),
               SizedBox(width: 6),
-              Text(category['name'], style: TextStyle(color: Colors.white)),
+              Text("${category['name']}".toUpperCase(),
+                  style: TextStyle(color: Colors.white)),
             ],
           ),
         ),
         onTap: () {
           setState(() {
             _selectedCategory = categories.indexOf(category);
+            str = category['name'];
           });
         },
       ));
@@ -130,13 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'This Weekend',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                        ),
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: Text(
@@ -149,54 +144,60 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(height: 10),
+                  // Container(
+                  //   height: 290,
+                  //   child: ListView.builder(
+                  //     itemCount: weekendEvents.length,
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemBuilder: (context, index) {
+                  //       Event event = weekendEvents[index];
+                  //       return HomeEventContainer(
+                  //         event: event,
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                   Container(
-                    height: 290,
-                    child: ListView.builder(
-                      itemCount: weekendEvents.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        Event event = weekendEvents[index];
-                        return HomeEventContainer(
-                          event: event,
-                        );
-                      },
+                    height: 530,
+                    child: ExploreTab(
+                      category: str,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Upcoming Events',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Text(
-                          'All',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    height: 300,
-                    child: ListView.builder(
-                      itemCount: upcomingHomeEvents.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        Event event = upcomingHomeEvents[index];
-                        return HomeEventContainer(
-                          event: event,
-                        );
-                      },
-                    ),
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       'Upcoming Events',
+                  //       style: TextStyle(
+                  //         color: Colors.grey,
+                  //         fontSize: 15,
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: const EdgeInsets.only(right: 20),
+                  //       child: Text(
+                  //         'All',
+                  //         style: TextStyle(
+                  //           color: Colors.grey,
+                  //         ),
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
+                  // SizedBox(height: 10),
+                  // Container(
+                  //   height: 300,
+                  //   child: ListView.builder(
+                  //     itemCount: upcomingHomeEvents.length,
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemBuilder: (context, index) {
+                  //       Event event = upcomingHomeEvents[index];
+                  //       return HomeEventContainer(
+                  //         event: event,
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             )
@@ -205,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+}
 //   Widget buildCategoriesWidgets() {
 //     return Expanded(
 //         child: DefaultTabController(
@@ -281,4 +282,4 @@ class _HomeScreenState extends State<HomeScreen> {
 //     ));
 //   }
 // }
-}
+

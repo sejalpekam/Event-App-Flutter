@@ -5,6 +5,7 @@ import 'package:event_app_flutter/Widgets/HomeEventContainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:event_app_flutter/Widgets/LoadingWidget.dart';
+import 'package:intl/intl.dart';
 
 class ExploreTab extends StatefulWidget {
   const ExploreTab({Key key, this.category}) : super(key: key);
@@ -32,14 +33,16 @@ class _ExploreTabState extends State<ExploreTab> {
                   itemCount: eventDocs.length,
                   itemBuilder: (_, index) {
                     return HomeEventContainer(
+                      category: widget.category,
                       event: Event(
                         name: eventDocs[index]['eventName'],
                         image: eventDocs[index]['imageUrl'],
-                        date: eventDocs[index]['eventDateTime'].toString(),
+                        date: DateFormat.yMMMd().add_jm().format(eventDocs[index]['eventDateTime'].toDate()),
                         about: eventDocs[index]['about'],
                         location: eventDocs[index]['Location'],
                         participants: eventDocs[index]['attendees'],
                         category: eventDocs[index]['category'],
+                        eventId: eventDocs[index].id,
                       ),
                     );
                     // return InkWell(

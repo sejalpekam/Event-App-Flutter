@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class HomeEventContainer extends StatefulWidget {
   final Event event;
+  final String category;
 
-  const HomeEventContainer({this.event});
+  const HomeEventContainer({this.event, this.category});
 
   @override
   _HomeEventContainerState createState() => _HomeEventContainerState();
@@ -20,6 +21,7 @@ class _HomeEventContainerState extends State<HomeEventContainer> {
           context,
           MaterialPageRoute(
             builder: (context) => EventScreen(
+              category: widget.category,
               event: widget.event,
             ),
           ),
@@ -28,8 +30,9 @@ class _HomeEventContainerState extends State<HomeEventContainer> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(width: 20),
           Container(
-            margin: EdgeInsets.only(right: 15),
+            margin: EdgeInsets.fromLTRB(7, 25, 5, 0),
             child: Stack(
               children: [
                 Container(
@@ -38,31 +41,32 @@ class _HomeEventContainerState extends State<HomeEventContainer> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image:AssetImage(widget.event.image),
-                      //NetworkImage(widget.event.image),
+                      image: //AssetImage(widget.event.image),
+                          NetworkImage(widget.event.image),
                     ),
                   ),
                 ),
-                Positioned(
-                    right: 10,
-                    left: 10,
-                    bottom: 10,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Text(
-                        //   event.cost,
-                        //   style: TextStyle(
-                        //     color: Colors.white,
-                        //     fontSize: 18,
-                        //   ),
-                        // ),
-                        // Icon(
-                        //   event.category['icon'],
-                        //   color: Colors.white,
-                        // ),
-                      ],
-                    ))
+                // Positioned(
+                //     right: 10,
+                //     left: 10,
+                //     bottom: 10,
+
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         // Text(
+                //         //   event.cost,
+                //         //   style: TextStyle(
+                //         //     color: Colors.white,
+                //         //     fontSize: 18,
+                //         //   ),
+                //         // ),
+                //         // Icon(
+                //         //   event.category['icon'],
+                //         //   color: Colors.white,
+                //         // ),
+                //       ],
+                //     ))
               ],
             ),
           ),
@@ -90,14 +94,16 @@ class _HomeEventContainerState extends State<HomeEventContainer> {
               ),
               SizedBox(width: 20),
               Text(
-                '112 available',
+                widget.event.participants.toString() + ' Attendees',
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.grey,
                 ),
-              )
+              ),
+              SizedBox(width: 20),
             ],
-          )
+          ),
+          SizedBox(width: 20),
         ],
       ),
     );

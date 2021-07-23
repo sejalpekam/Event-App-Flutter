@@ -14,17 +14,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selected = 0;
- 
+
   Widget build(BuildContext context) {
     final currUser = FirebaseAuth.instance.currentUser;
 
-     CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     return FutureBuilder<DocumentSnapshot>(
       future: users.doc(currUser.uid).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
         if (snapshot.hasError) {
           return Text("Something went wrong");
         }
@@ -34,101 +33,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data.data() as Map<String, dynamic>;
           return Scaffold(
-      body: ListView(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 150,
-                padding: EdgeInsets.all(30),
-                color: Colors.black,
-                child: Row(
+            body: ListView(
+              children: [
+                Stack(
                   children: [
-                    CircleAvatar(
-                      radius: 35,
-                      backgroundImage: AssetImage(
-                        'assets/pp.jpg',
+                    Container(
+                      height: 100,
+                      padding: EdgeInsets.all(30),
+                      color: Colors.black,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 35,
+                            backgroundImage: NetworkImage(data['imageUrl']),
+                          ),
+                          SizedBox(width: 24),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${data['username']}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(width: 30),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          //'Marwan Pablo',
-                          "${data['username']}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                          ),
+                    Positioned(
+                      right: 10,
+                      top: 20,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.logout,
+                          color: Colors.white,
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    )
+                        onPressed: () {
+                          FirebaseAuth.instance
+                              .signOut()
+                              .then((result) => Navigator.pushReplacementNamed(
+                                  context, "/login"))
+                              .catchError((err) => print(err));
+                        },
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              Positioned(
-                right: 10,
-                bottom: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    FirebaseAuth.instance
-                        .signOut()
-                        .then((result) =>
-                            Navigator.pushReplacementNamed(context, "/login"))
-                        .catchError((err) => print(err));
-                  },
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 25),
-            child: Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    child: Text(
-                      'Attending',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: _selected == 0 ? Colors.black : Colors.grey,
-                        fontSize: 17,
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 25),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          child: Text(
+                            'Attending',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                                  _selected == 0 ? Colors.black : Colors.grey,
+                              fontSize: 17,
+                            ),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _selected = 0;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _selected = 0;
-                      });
-                    },
+                    ],
                   ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: profileEvents.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    Event event = profileEvents[index];
+                    return ProfileEventContainer(
+                      event: event,
+                    );
+                  },
                 ),
               ],
             ),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: profileEvents.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              Event event = profileEvents[index];
-              return ProfileEventContainer(
-                event: event,
-              );
-            },
-          ),
-        ],
-      ),
-    );
+          );
         }
 
         return LoadingWidget();

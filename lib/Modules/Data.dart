@@ -5,23 +5,23 @@ const Color KAppColor = Color(0xFF00AF19);
 
 List<Map> categories = [
   {
-    "name": 'MUSIC',
+    "name": 'music',
     'icon': Icons.music_note,
   },
   {
-    "name": 'SPORT',
+    "name": 'sport',
     'icon': Icons.sports_basketball,
   },
   {
-    "name": 'FOOD',
+    "name": 'food',
     'icon': Icons.fastfood,
   },
   {
-    "name": 'ART',
+    "name": 'art',
     'icon': Icons.bubble_chart,
   },
   {
-    "name": 'OTHER',
+    "name": 'other',
     'icon': Icons.miscellaneous_services,
   },
 ];
@@ -30,7 +30,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event1.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -43,7 +43,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event2.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -56,7 +56,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event3.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -69,7 +69,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event4.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -82,7 +82,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event5.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -95,7 +95,7 @@ List<Event> weekendEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event0.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -111,7 +111,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event0.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -124,7 +124,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event5.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -137,7 +137,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event3.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -150,7 +150,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event1.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -163,7 +163,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event4.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
    // category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -176,7 +176,7 @@ List<Event> upcomingHomeEvents = [
   Event(
     name: 'Moon Crush Festival',
     image: 'assets/event2.jpg',
-    date: '25 Dec',
+    //date: '25 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -192,7 +192,7 @@ List<Event> profileEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event8.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     // category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -205,7 +205,7 @@ List<Event> profileEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event7.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     //category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -218,7 +218,7 @@ List<Event> profileEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event0.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     // category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',
@@ -231,7 +231,7 @@ List<Event> profileEvents = [
   Event(
     name: 'Marwan Pablo Live',
     image: 'assets/event6.jpg',
-    date: '24 Dec',
+    //date: '24 Dec',
     // category: categories[0],
     location: 'Barclays Centre',
     // fromTo: '19PM - 22PM',

@@ -30,6 +30,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   String email, password, dob;
+ 
 
   Color greenColor = Color(0xFF00AF19);
 
@@ -53,6 +54,8 @@ class _SignupPageState extends State<SignupPage> {
     else
       return null;
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +163,7 @@ class _SignupPageState extends State<SignupPage> {
               dob = value.toString();
             },
           ),
+         
           SizedBox(height: 50.0),
           GestureDetector(
             onTap: () {
@@ -261,6 +265,7 @@ class _SignupPageState extends State<SignupPage> {
               .catchError((e) {
                 ErrorHandler().errorDialog(context, e);
               }));
+              
     });
   }
 

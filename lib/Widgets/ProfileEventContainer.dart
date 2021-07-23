@@ -58,7 +58,7 @@ class ProfileEventContainer extends StatelessWidget {
                           radius: 32,
                           backgroundColor: KAppColor,
                           child: Text(
-                            event.date,
+                            event.date.toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,

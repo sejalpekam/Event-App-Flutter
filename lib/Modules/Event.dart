@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Event {
   String name;
   String image;
   String date;
   String category;
   String location;
-  //String fromTo;
+  String eventId;
   int participants;
   // String cost;
   // int duration;
@@ -16,7 +18,7 @@ class Event {
     this.date,
     this.category,
     this.location,
-    //this.fromTo,
+    this.eventId,
     this.participants,
     // this.cost,
     // this.duration,
