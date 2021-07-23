@@ -8,8 +8,11 @@ This is an Events app created using Flutter, Firebase, Firestore and FireStorage
 
 ## Features
 The app contains following functionality:
+
 ● Login and Register screen
+
 ○ Users should be able to login or register themself in order to attend an event.
+
 ○ User attributes:
 
 ■ User name
@@ -51,9 +54,9 @@ events list screen.
 
 ## Glance Through UI
 
-**Login**                  |      **Register**         |  **Home**
+**Login**                  |      **Signup**         |  **Home**
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="/assets/ui_ss/Login.png" alt="Login" width="200"/>  |  <img src="/assets/ui_ss/Register.png" alt="Register" width="200"/>  |  <img src="/assets/ui_ss/Home.png" alt="Home" width="200"/>
+<img src="/assets/ui_ss/Login.png" alt="Login" width="200"/>  |  <img src="/assets/ui_ss/Signup.png" alt="Signup" width="200"/>  |  <img src="/assets/ui_ss/Home.png" alt="Home" width="200"/>
 
 **Add Event**          |  **Event Details**             
 <img src="/assets/ui_ss/Add Event.png" alt="Add Event" width="200"/>  |  <img src="/assets/ui_ss/Event Details.png" alt="Event Details" width="200"/>  
