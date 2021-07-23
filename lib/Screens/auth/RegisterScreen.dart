@@ -245,7 +245,7 @@ class _SignupPageState extends State<SignupPage> {
 
     storageUploadTask.then((res) async {
       userImageUrl = await res.ref.getDownloadURL();
-      print("Url is" + userImageUrl);
+      print("Url profile is " + userImageUrl);
 
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)

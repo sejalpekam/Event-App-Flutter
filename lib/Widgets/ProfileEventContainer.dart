@@ -16,6 +16,7 @@ class ProfileEventContainer extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => EventScreen(
+              category: event.category,
               event: event,
             ),
           ),
@@ -54,18 +55,18 @@ class ProfileEventContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 32,
-                          backgroundColor: KAppColor,
-                          child: Text(
-                            event.date.toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
+                        // CircleAvatar(
+                        //       radius: 45,
+                        //       backgroundColor: KAppColor,
+                        //       child: Text(
+                        //         event.date.toString(),
+                        //         textAlign: TextAlign.center,
+                        //         style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontSize: 18,
+                        //         ),
+                        //       ),
+                        //     ),
                         Icon(
                           Icons.share,
                           color: Colors.white,

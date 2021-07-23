@@ -47,10 +47,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 35,
-                            backgroundImage: NetworkImage(data['imageUrl']),
+                            radius: 45,
+                            foregroundImage: NetworkImage(data['imageUrl']),
                           ),
-                          SizedBox(width: 24),
+                          SizedBox(width: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -81,7 +81,6 @@ class _AddEventState extends State<AddEvent> {
                               )
                             : null,
                       )),
-                     
                   const SizedBox(height: 13),
                   buildTitle(),
                   const SizedBox(height: 13),
@@ -144,7 +143,7 @@ class _AddEventState extends State<AddEvent> {
           }
         },
         maxLength: 40,
-        onSaved: (value) => setState(() => about = value),
+        onSaved: (value) => setState(() => location = value),
       );
 
   Widget buildDesc() => TextFormField(
@@ -164,7 +163,7 @@ class _AddEventState extends State<AddEvent> {
             return null;
           }
         },
-        onSaved: (value) => setState(() => location = value),
+        onSaved: (value) => setState(() => about = value),
       );
 
   Widget buildDate() => Container(
@@ -355,7 +354,7 @@ class _AddEventState extends State<AddEvent> {
 
     storageUploadTask.then((res) async {
       imageUrl = await res.ref.getDownloadURL();
-      print("Url is" + imageUrl);
+      print("Url event is " + imageUrl);
 
       String str = '';
       if (category == 'Music') {
@@ -379,16 +378,15 @@ class _AddEventState extends State<AddEvent> {
         'imageUrl': imageUrl,
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: Duration(milliseconds: 500),
-      content: Text('Event Added'),
-    ));
+        duration: Duration(milliseconds: 500),
+        content: Text('Event Added'),
+      ));
 
-    setState(() {
-      date = null;
-      time = null;
-    });
-    formKey.currentState.reset();
-  
+      setState(() {
+        date = null;
+        time = null;
+      });
+      formKey.currentState.reset();
     });
   }
 
@@ -412,7 +410,7 @@ class _AddEventState extends State<AddEvent> {
       'category': category,
       'eventDateTime': eventDateTime,
       'attendees': attendees,
-      'imageUrl': "null",
+      'imageUrl': "https://firebasestorage.googleapis.com/v0/b/event-app-db683.appspot.com/o/event%2F1627045394884004?alt=media&token=f8433298-15f0-40ff-b360-44a08c15c3a8",
     });
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(milliseconds: 500),

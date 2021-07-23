@@ -20,7 +20,7 @@ class _EventScreenState extends State<EventScreen> {
     return Scaffold(
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('music')
+              .collection(widget.category)
               .doc(widget.event.eventId)
               .snapshots(),
           builder: (_, snapshot) {
@@ -179,7 +179,7 @@ class _EventScreenState extends State<EventScreen> {
                               ),
                               onPressed: () async {
                                 await FirebaseFirestore.instance
-                                    .collection('music')
+                                    .collection(widget.category)
                                     .doc(widget.event.eventId)
                                     .update({
                                   'attendees': snapshotDoc.get('attendees') + 1
