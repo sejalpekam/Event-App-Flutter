@@ -1,11 +1,14 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AddEvent extends StatefulWidget {
-  const AddEvent({ Key key }) : super(key: key);
+  const AddEvent({Key key}) : super(key: key);
 
   @override
   _AddEventState createState() => _AddEventState();
@@ -19,6 +22,8 @@ class _AddEventState extends State<AddEvent> {
   String location = '';
   String category = 'Music';
   int attendees = 0;
+  String imageUrl = "";
+  File _imageFile;
 
   DateTime eventDateTime;
   DateTime date;
@@ -60,6 +65,23 @@ class _AddEventState extends State<AddEvent> {
                     'Add Event Form',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
+                  const SizedBox(height: 13),
+                  InkWell(
+                      onTap: _selectAndPickImage,
+                      child: CircleAvatar(
+                        radius: MediaQuery.of(context).size.width * 0.15,
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                            _imageFile == null ? null : FileImage(_imageFile),
+                        child: _imageFile == null
+                            ? Icon(
+                                Icons.add_photo_alternate,
+                                size: MediaQuery.of(context).size.width * 0.15,
+                                color: Colors.grey,
+                              )
+                            : null,
+                      )),
+                     
                   const SizedBox(height: 13),
                   buildTitle(),
                   const SizedBox(height: 13),
@@ -273,40 +295,134 @@ class _AddEventState extends State<AddEvent> {
               );
 
               print(eventDateTime);
-              String str = '';
-              if (category == 'Music') {
-                str = 'music';
-              } else if (category == 'Sport') {
-                str = 'sport';
-              } else if (category == 'Food') {
-                str = 'food';
-              } else if (category == 'Art') {
-                str = 'art';
-              } else {
-                str = 'other';
-              }
-              await FirebaseFirestore.instance.collection(str).add({
-                'eventName': eventName,
-                'about': about,
-                'Location': location,
-                'category': category,
-                'eventDateTime': eventDateTime,
-                'attendees': attendees,
-              });
+              uploadAndSaveImage();
+              // String str = '';
+              // if (category == 'Music') {
+              //   str = 'music';
+              // } else if (category == 'Sport') {
+              //   str = 'sport';
+              // } else if (category == 'Food') {
+              //   str = 'food';
+              // } else if (category == 'Art') {
+              //   str = 'art';
+              // } else {
+              //   str = 'other';
+              // }
+              // await FirebaseFirestore.instance.collection(str).add({
+              //   'eventName': eventName,
+              //   'about': about,
+              //   'Location': location,
+              //   'category': category,
+              //   'eventDateTime': eventDateTime,
+              //   'attendees': attendees,
+              // });
 
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                duration: Duration(milliseconds: 500),
-                content: Text('Event Added'),
-              ));
+              //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //       duration: Duration(milliseconds: 500),
+              //       content: Text('Event Added'),
+              //     ));
 
-              setState(() {
-                date = null;
-                time = null;
-              });
-              formKey.currentState.reset();
+              //     setState(() {
+              //       date = null;
+              //       time = null;
+              //     });
+              //     formKey.currentState.reset();
             }
           },
         ),
       );
-}
 
+  Future<void> _selectAndPickImage() async {
+    _imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+  }
+
+  Future<void> uploadAndSaveImage() async {
+    if (_imageFile == null) {
+      addData();
+    } else {
+      uploadToStorage();
+    }
+  }
+
+  Future<void> uploadToStorage() async {
+    String imageFileName = DateTime.now().microsecondsSinceEpoch.toString();
+    firebase_storage.Reference storageReference = firebase_storage
+        .FirebaseStorage.instance
+        .ref()
+        .child('event/$imageFileName');
+    firebase_storage.UploadTask storageUploadTask =
+        storageReference.putFile(_imageFile);
+
+    storageUploadTask.then((res) async {
+      imageUrl = await res.ref.getDownloadURL();
+      print("Url is" + imageUrl);
+
+      String str = '';
+      if (category == 'Music') {
+        str = 'music';
+      } else if (category == 'Sport') {
+        str = 'sport';
+      } else if (category == 'Food') {
+        str = 'food';
+      } else if (category == 'Art') {
+        str = 'art';
+      } else {
+        str = 'other';
+      }
+      await FirebaseFirestore.instance.collection(str).add({
+        'eventName': eventName,
+        'about': about,
+        'Location': location,
+        'category': category,
+        'eventDateTime': eventDateTime,
+        'attendees': attendees,
+        'imageUrl': imageUrl,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(milliseconds: 500),
+      content: Text('Event Added'),
+    ));
+
+    setState(() {
+      date = null;
+      time = null;
+    });
+    formKey.currentState.reset();
+  
+    });
+  }
+
+  Future<void> addData() async {
+    String str = '';
+    if (category == 'Music') {
+      str = 'music';
+    } else if (category == 'Sport') {
+      str = 'sport';
+    } else if (category == 'Food') {
+      str = 'food';
+    } else if (category == 'Art') {
+      str = 'art';
+    } else {
+      str = 'other';
+    }
+    await FirebaseFirestore.instance.collection(str).add({
+      'eventName': eventName,
+      'about': about,
+      'Location': location,
+      'category': category,
+      'eventDateTime': eventDateTime,
+      'attendees': attendees,
+      'imageUrl': "null",
+    });
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(milliseconds: 500),
+      content: Text('Event Added'),
+    ));
+
+    setState(() {
+      date = null;
+      time = null;
+    });
+    formKey.currentState.reset();
+  }
+}

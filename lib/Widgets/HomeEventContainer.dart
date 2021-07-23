@@ -2,10 +2,16 @@ import 'package:event_app_flutter/Modules/Event.dart';
 import 'package:event_app_flutter/Screens/EventScreen.dart';
 import 'package:flutter/material.dart';
 
-class HomeEventContainer extends StatelessWidget {
+class HomeEventContainer extends StatefulWidget {
   final Event event;
 
   const HomeEventContainer({this.event});
+
+  @override
+  _HomeEventContainerState createState() => _HomeEventContainerState();
+}
+
+class _HomeEventContainerState extends State<HomeEventContainer> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -14,7 +20,7 @@ class HomeEventContainer extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => EventScreen(
-              event: event,
+              event: widget.event,
             ),
           ),
         );
@@ -32,7 +38,8 @@ class HomeEventContainer extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage(event.image),
+                      image:AssetImage(widget.event.image),
+                      //NetworkImage(widget.event.image),
                     ),
                   ),
                 ),
@@ -43,17 +50,17 @@ class HomeEventContainer extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          event.cost,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Icon(
-                          event.category['icon'],
-                          color: Colors.white,
-                        ),
+                        // Text(
+                        //   event.cost,
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 18,
+                        //   ),
+                        // ),
+                        // Icon(
+                        //   event.category['icon'],
+                        //   color: Colors.white,
+                        // ),
                       ],
                     ))
               ],
@@ -61,7 +68,7 @@ class HomeEventContainer extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            event.name,
+            widget.event.name,
             style: TextStyle(
               fontSize: 23,
               wordSpacing: 1,
@@ -75,7 +82,7 @@ class HomeEventContainer extends StatelessWidget {
                 size: 15,
               ),
               Text(
-                event.location,
+                widget.event.location,
                 style: TextStyle(
                   decoration: TextDecoration.underline,
                   fontSize: 11,

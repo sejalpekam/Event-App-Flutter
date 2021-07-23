@@ -1,6 +1,7 @@
 import 'package:event_app_flutter/Modules/Data.dart';
 import 'package:event_app_flutter/Modules/Event.dart';
 import 'package:event_app_flutter/Screens/AddEvent.dart';
+import 'package:event_app_flutter/Screens/ExploreScreen.dart';
 import 'package:event_app_flutter/Screens/ProfileScreen.dart';
 import 'package:event_app_flutter/Widgets/HomeEventContainer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedCategory = 0;
+  String str = 'music';
 
   List<Widget> buildCategoriesWidgets() {
     List<Widget> categoriesWidgets = [];
@@ -203,4 +205,80 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+//   Widget buildCategoriesWidgets() {
+//     return Expanded(
+//         child: DefaultTabController(
+//       length: 5,
+//       initialIndex: 0,
+//       child: Column(
+//         children: [
+//           TabBar(
+//             isScrollable: true,
+//             indicatorColor: Colors.green,
+//             tabs: [
+//               Tab(
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.music_note, color: Colors.white),
+//                     SizedBox(width: 6),
+//                     Text('MUSIC', style: TextStyle(color: Colors.white)),
+//                   ],
+//                 ),
+//               ),
+//               Tab(
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.sports_basketball, color: Colors.white),
+//                     SizedBox(width: 6),
+//                     Text('SPORT', style: TextStyle(color: Colors.white)),
+//                   ],
+//                 ),
+//               ),
+//               Tab(
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.fastfood, color: Colors.white),
+//                     SizedBox(width: 6),
+//                     Text('FOOD', style: TextStyle(color: Colors.white)),
+//                   ],
+//                 ),
+//               ),
+//               Tab(
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.bubble_chart, color: Colors.white),
+//                     SizedBox(width: 6),
+//                     Text('ART', style: TextStyle(color: Colors.white)),
+//                   ],
+//                 ),
+//               ),
+//               Tab(
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.circle, color: Colors.white),
+//                     SizedBox(width: 6),
+//                     Text('OTHER', style: TextStyle(color: Colors.white)),
+//                   ],
+//                 ),
+//               )
+//             ],
+//             unselectedLabelColor: Colors.transparent,
+//           ),
+//           Expanded(
+//             child: TabBarView(
+//               children: [
+//                 ExploreTab(category: 'music'),
+//                 ExploreTab(category: 'sport'),
+//                 ExploreTab(category: 'food'),
+//                 ExploreTab(category: 'art'),
+//                 ExploreTab(category: 'other'),
+//               ],
+//             ),
+//           )
+//         ],
+//       ),
+//     ));
+//   }
+// }
 }

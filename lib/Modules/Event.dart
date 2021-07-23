@@ -2,12 +2,12 @@ class Event {
   String name;
   String image;
   String date;
-  Map category;
+  String category;
   String location;
-  String fromTo;
+  //String fromTo;
   int participants;
-  String cost;
-  int duration;
+  // String cost;
+  // int duration;
   String about;
 
   Event({
@@ -16,10 +16,10 @@ class Event {
     this.date,
     this.category,
     this.location,
-    this.fromTo,
+    //this.fromTo,
     this.participants,
-    this.cost,
-    this.duration,
+    // this.cost,
+    // this.duration,
     this.about,
   });
 }

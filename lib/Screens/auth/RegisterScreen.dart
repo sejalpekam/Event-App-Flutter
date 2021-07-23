@@ -19,8 +19,8 @@ class _SignupPageState extends State<SignupPage> {
   final formKey = new GlobalKey<FormState>();
 
   TextEditingController userNameInputController;
-  // String userImageUrl = "";
-  // File _imageFile;
+  String userImageUrl = "";
+  File _imageFile;
 
   @override
   initState() {
@@ -87,21 +87,21 @@ class _SignupPageState extends State<SignupPage> {
                 ],
               )),
           SizedBox(height: 25.0),
-          // InkWell(
-          //     onTap: _selectAndPickImage,
-          //     child: CircleAvatar(
-          //       radius: MediaQuery.of(context).size.width * 0.15,
-          //       backgroundColor: Colors.white,
-          //       backgroundImage:
-          //           _imageFile == null ? null : FileImage(_imageFile),
-          //       child: _imageFile == null
-          //           ? Icon(
-          //               Icons.add_photo_alternate,
-          //               size: MediaQuery.of(context).size.width * 0.15,
-          //               color: Colors.grey,
-          //             )
-          //           : null,
-          //     )),
+          InkWell(
+              onTap: _selectAndPickImage,
+              child: CircleAvatar(
+                radius: MediaQuery.of(context).size.width * 0.15,
+                backgroundColor: Colors.white,
+                backgroundImage:
+                    _imageFile == null ? null : FileImage(_imageFile),
+                child: _imageFile == null
+                    ? Icon(
+                        Icons.add_photo_alternate,
+                        size: MediaQuery.of(context).size.width * 0.15,
+                        color: Colors.grey,
+                      )
+                    : null,
+              )),
           SizedBox(height: 25.0),
           TextFormField(
             decoration: InputDecoration(labelText: 'User Name'),
@@ -166,24 +166,24 @@ class _SignupPageState extends State<SignupPage> {
               if (checkFields())
                 // AuthService()
                 //     .signUp(email, password)
-                //uploadAndSaveImage();
-              FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: email, password: password)
-                  .then((userCreds) => FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(userCreds.user.uid)
-                      .set({
-                        "uid": userCreds.user.uid,
-                        "username": userNameInputController.text,
-                        "email": email,
-                        "dob": dob,
-                        //"imageUrl": userImageUrl,
-                      })
-                      .then((result) => {Navigator.of(context).pop()})
-                      .catchError((e) {
-                        ErrorHandler().errorDialog(context, e);
-                      }));
+                uploadAndSaveImage();
+              // FirebaseAuth.instance
+              //     .createUserWithEmailAndPassword(
+              //         email: email, password: password)
+              //     .then((userCreds) => FirebaseFirestore.instance
+              //         .collection('users')
+              //         .doc(userCreds.user.uid)
+              //         .set({
+              //           "uid": userCreds.user.uid,
+              //           "username": userNameInputController.text,
+              //           "email": email,
+              //           "dob": dob,
+              //           "imageUrl": userImageUrl,
+              //         })
+              //         .then((result) => {Navigator.of(context).pop()})
+              //         .catchError((e) {
+              //           ErrorHandler().errorDialog(context, e);
+              //         }));
             },
             child: Container(
                 height: 50.0,
@@ -212,26 +212,75 @@ class _SignupPageState extends State<SignupPage> {
         ]));
   }
 
-  // Future<void> _selectAndPickImage() async {
-  //   _imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-  // }
+  Future<void> _selectAndPickImage() async {
+    _imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+  }
 
-  // Future<void> uploadAndSaveImage() async {
-  //   if (_imageFile == null) {
-  //     return ErrorHandler()
-  //         .errorDialog(context, "Please select an image file.");
-  //   } else {
-  //     uploadToStorage();
-  //   }
-  // }
+  Future<void> uploadAndSaveImage() async {
+    if (_imageFile == null) {
+      _registeruser();
+    } else {
+      uploadToStorage();
+    }
+  }
 
-  // uploadToStorage() async {
-  //   String imageFileName = DateTime.now().microsecondsSinceEpoch.toString();
-  //   firebase_storage.Reference storageReference =
-  //       firebase_storage.FirebaseStorage.instance.ref().child(imageFileName);
-  //   firebase_storage.UploadTask storageUploadTask =
-  //       storageReference.putFile(_imageFile);
-  //   var imageUrl = await (await storageUploadTask).ref.getDownloadURL();
-  //   userImageUrl = imageUrl.toString();
-  // }
+  Future<void> uploadToStorage() async {
+    String imageFileName = DateTime.now().microsecondsSinceEpoch.toString();
+    firebase_storage.Reference storageReference = firebase_storage
+        .FirebaseStorage.instance
+        .ref()
+        .child('profile/$imageFileName');
+    firebase_storage.UploadTask storageUploadTask =
+        storageReference.putFile(_imageFile);
+    // var imageUrl = await storageReference.getDownloadURL();
+    // userImageUrl = imageUrl.toString();
+
+    // await storageReference.getDownloadURL().then((fileURL) {
+    //   userImageUrl =  fileURL;
+    // });
+
+    storageUploadTask.then((res) async {
+      userImageUrl = await res.ref.getDownloadURL();
+      print("Url is" + userImageUrl);
+
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((userCreds) => FirebaseFirestore.instance
+              .collection('users')
+              .doc(userCreds.user.uid)
+              .set({
+                "uid": userCreds.user.uid,
+                "username": userNameInputController.text,
+                "email": email,
+                "dob": dob,
+                "imageUrl": userImageUrl,
+              })
+              //.then((result) => {Navigator.of(context).pop()})
+              .then((result) =>
+                  {Navigator.popUntil(context, ModalRoute.withName('/home'))})
+              .catchError((e) {
+                ErrorHandler().errorDialog(context, e);
+              }));
+    });
+  }
+
+  Future<void> _registeruser() async {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((userCreds) => FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCreds.user.uid)
+            .set({
+              "uid": userCreds.user.uid,
+              "username": userNameInputController.text,
+              "email": email,
+              "dob": dob,
+              "imageUrl":
+                  "https://firebasestorage.googleapis.com/v0/b/event-app-db683.appspot.com/o/event%2F1627022301157100?alt=media&token=7b716b04-03f9-4bbe-a077-3893a1166f90", //"gs://event-app-db683.appspot.com/event/event1.jpg",
+            })
+            .then((result) => {Navigator.of(context).pop()})
+            .catchError((e) {
+              ErrorHandler().errorDialog(context, e);
+            }));
+  }
 }

@@ -49,7 +49,7 @@ class _EventScreenState extends State<EventScreen> {
                         radius: 32,
                         backgroundColor: KAppColor,
                         child: Text(
-                          widget.event.date,
+                          widget.event.date.toString(),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -68,7 +68,7 @@ class _EventScreenState extends State<EventScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.event.name,
+                        widget.event.name.toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 35,
@@ -77,12 +77,12 @@ class _EventScreenState extends State<EventScreen> {
                       SizedBox(height: 10),
                       Row(
                         children: [
-                          Icon(
-                            widget.event.category['icon'],
-                            color: Colors.white,
-                          ),
+                          // Icon(
+                          //   widget.event.category,
+                          //   color: Colors.white,
+                          // ),
                           Text(
-                            widget.event.category['name'],
+                            widget.event.category.toString(),
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -110,7 +110,7 @@ class _EventScreenState extends State<EventScreen> {
                           size: 15,
                         ),
                         Text(
-                          widget.event.location,
+                          widget.event.location.toString(),
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 15,
@@ -118,12 +118,12 @@ class _EventScreenState extends State<EventScreen> {
                         )
                       ],
                     ),
-                    Text(
-                      widget.event.fromTo,
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    )
+                    // Text(
+                    //   widget.event.fromTo,
+                    //   style: TextStyle(
+                    //     fontSize: 15,
+                    //   ),
+                    // )
                   ],
                 ),
                 SizedBox(height: 20),
@@ -131,17 +131,18 @@ class _EventScreenState extends State<EventScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.event.participants.toString() + ' Participants',
+                      //widget.event.participants.toString() + ' Attendees',
+                      '112',
                       style: TextStyle(
                         fontSize: 15,
                       ),
                     ),
-                    Text(
-                      widget.event.duration.toString() + ' days duration',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    )
+                    // Text(
+                    //   widget.event.duration.toString() + ' days duration',
+                    //   style: TextStyle(
+                    //     fontSize: 15,
+                    //   ),
+                    // )
                   ],
                 ),
                 SizedBox(height: 20),
@@ -152,7 +153,7 @@ class _EventScreenState extends State<EventScreen> {
                     color: KAppColor,
                     child: MaterialButton(
                       child: Text(
-                        'BUY TICKET',
+                        'ATTEND',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -172,7 +173,7 @@ class _EventScreenState extends State<EventScreen> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  widget.event.about,
+                  widget.event.about.toString(),
                   style: TextStyle(
                     fontSize: 15,
                   ),

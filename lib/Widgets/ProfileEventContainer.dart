@@ -24,15 +24,15 @@ class ProfileEventContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 25, bottom: 10),
-            child: Text(
-              event.duration.toString() + ' days left',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 25, bottom: 10),
+          //   child: Text(
+          //     event.duration.toString() + ' days left',
+          //     style: TextStyle(
+          //       color: Colors.grey,
+          //     ),
+          //   ),
+          // ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 25),
             child: Stack(
@@ -108,13 +108,13 @@ class ProfileEventContainer extends StatelessWidget {
                               )
                             ],
                           ),
-                          Text(
-                            event.fromTo,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                            ),
-                          )
+                          // Text(
+                          //   event.fromTo,
+                          //   style: TextStyle(
+                          //     fontSize: 15,
+                          //     color: Colors.white,
+                          //   ),
+                          // )
                         ],
                       )
                     ],
